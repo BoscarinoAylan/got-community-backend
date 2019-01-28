@@ -1,0 +1,23 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "email-validator": "^2.0.4",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.4",
+    "password-validator": "^4.1.1",
+    "sequelize": "^4.42.0"
+  }
+}
