@@ -1,6 +1,6 @@
 const Router = require('express').Router();
 
-function userRouter(userController) {
+function userRouter(userController, middlewares) {
     Router.post('/', userController.createUser);
 
     return Router;

@@ -1,17 +1,28 @@
 class PostController {
     constructor(postService) {
         this.postService = postService;
-
+        
         this.index = this.index.bind(this);
         this.create = this.create.bind(this);
         this.update = this.update.bind(this);
         this.destroy = this.destroy.bind(this);
+        this.show = this.show.bind(this);
     }
 
     async index(req, res, next) {
         try {
             const posts = await this.postService.listPosts(req.query.id);
             return res.json(posts);
+        } catch (error) {
+            return next(error);
+        }
+    }
+
+    async show(req, res, next) {
+        try {
+            const postId = req.params.id;
+            const post = await this.postService.getPost(postId);
+            return res.json(post);
         } catch (error) {
             return next(error);
         }

@@ -3,12 +3,14 @@ const crypto = require('crypto');
 
 const environment = process.env.NODE_ENV || 'development';
 const config = require('../core/config')[environment];
-const { UserService } = require('../user/service');
-const BlackList = require('./model');
 
 class AuthService {
-    constructor() {
-        this.userService = new UserService();
+    constructor(
+        userService,
+        authRepository,
+    ) {
+        this.authRepository = authRepository;
+        this.userService = userService;
         
         this.logIn = this.logIn.bind(this);
     }
@@ -34,17 +36,17 @@ class AuthService {
     }
 
     async logOut(token) {
-        const tokensList = await BlackList.findAll({
+        const tokensList = await this.authRepository.findAll({
             where: { token }
         });
         if (tokensList.length === 0) {
-            const invalidToken = new BlackList({ token });
+            const invalidToken = this.authRepository.create({ token });
             invalidToken.save();
         }
     }
 
     async tokenIsBlacklisted(token) {
-        const tokensList = await BlackList.findAll({
+        const tokensList = await this.authRepository.findAll({
             where: { token }
         });
         return tokensList.length > 0;

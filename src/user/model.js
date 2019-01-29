@@ -41,7 +41,4 @@ const User = database.define('user', {
     }
 });
 
-// User.hasMany(Post, { foreignKey: 'authorId' });
-// Post.belongsTo(User, { as: 'author', foreignKey: 'authorId' });
- 
 module.exports = User;

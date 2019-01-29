@@ -1,4 +1,3 @@
-
 class PostService {
 
     constructor(
@@ -25,14 +24,13 @@ class PostService {
         const feature = authorId && 'where';
         return await this.postRepository.findAll({
             [feature]: { authorId },
-            attributes: ['id', 'title', 'body'],
             order: [
                 ['createdAt', 'DESC']
             ],
             include: [{
                 required: true,
                 as: 'author',
-                model: this.userRepository,
+                model: this.userRepository.getModel(),
                 attributes: ['name', 'id'],
                 association: 'author'
             }],

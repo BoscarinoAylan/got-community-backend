@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const database = require('../core/database');
 
-const BlackList = database.define('blacklist', {
+const Auth = database.define('blacklist', {
     id: {
         allowNull: false,
         autoIncrement: false,
@@ -18,4 +18,4 @@ const BlackList = database.define('blacklist', {
     }
 });
 
-module.exports = BlackList;
+module.exports = Auth;

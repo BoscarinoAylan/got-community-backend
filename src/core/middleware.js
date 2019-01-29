@@ -1,11 +1,11 @@
 const emailValidator = require('email-validator');
 const PasswordValidator = require('password-validator');
 
-const { AuthService } = require('../auth/service');
-
 class Middleware {
-    constructor() {
-        this.authService = new AuthService();
+    constructor(
+        authService
+    ) {
+        this.authService = authService;
         this.authenticateRequests = this.authenticateRequests.bind(this);
     }
 
@@ -26,7 +26,6 @@ class Middleware {
             }
 
             if (await this.authService.tokenIsBlacklisted()) {
-                console.log('parou aki');
                 return res.status(401).end();
             }
 
