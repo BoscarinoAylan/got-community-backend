@@ -13,6 +13,9 @@ class AuthService {
         this.userService = userService;
         
         this.logIn = this.logIn.bind(this);
+        this.logOut = this.logOut.bind(this);
+        this.tokenIsBlacklisted = this.tokenIsBlacklisted.bind(this);
+
     }
 
     async logIn(email, password) {

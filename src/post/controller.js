@@ -50,6 +50,10 @@ class PostController {
 
             const post = await this.postService.getPost(postId);
 
+            if (!post) {
+                return res.status(404).end();
+            }
+
             if (post.authorId === authorId ) {
                 await this.postService.updatePost(
                     req.params.id,
@@ -71,6 +75,10 @@ class PostController {
 
             const post = await this.postService.getPost(postId);
 
+            if (!post) {
+                return res.status(404).end();
+            }
+            
             if (post.authorId === authorId ) {
                 await this.postService.destroyPost(post.id);
                 return res.status(200).end();

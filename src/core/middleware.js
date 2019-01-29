@@ -16,7 +16,6 @@ class Middleware {
         ) {
             return res.status(401).end();
         }
-
         const token = req.headers.authorization.split(' ')[1];
 
         this.authService.tokenIsValid(token, async (error, payload) => {
@@ -25,7 +24,7 @@ class Middleware {
 
             }
 
-            if (await this.authService.tokenIsBlacklisted()) {
+            if (await this.authService.tokenIsBlacklisted(token)) {
                 return res.status(401).end();
             }
 
