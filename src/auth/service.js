@@ -6,9 +6,10 @@ const config = require('../core/config')[environment];
 const { UserService } = require('../user/service');
 const BlackList = require('./model');
 
-module.exports.AuthService = class AuthService {
+class AuthService {
     constructor() {
         this.userService = new UserService();
+        
         this.logIn = this.logIn.bind(this);
     }
 
@@ -33,7 +34,9 @@ module.exports.AuthService = class AuthService {
     }
 
     async logOut(token) {
-        const tokensList = await BlackList.find({ token });
+        const tokensList = await BlackList.findAll({
+            where: { token }
+        });
         if (tokensList.length === 0) {
             const invalidToken = new BlackList({ token });
             invalidToken.save();
@@ -41,11 +44,15 @@ module.exports.AuthService = class AuthService {
     }
 
     async tokenIsBlacklisted(token) {
-        const tokensList = await BlackList.find({ token });
-        return tokensList > 0;
+        const tokensList = await BlackList.findAll({
+            where: { token }
+        });
+        return tokensList.length > 0;
     }
 
     async tokenIsValid(token, callback) {
         return jwt.verify(token, config.jwtSecret, callback);
     }
-};
+}
+
+module.exports = { AuthService };

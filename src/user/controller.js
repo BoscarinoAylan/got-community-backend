@@ -1,9 +1,7 @@
-const { UserService } = require('./service');
-
-module.exports.UserController = class {
-    constructor() {
+class UserController {
+    constructor(userService) {
         this.createUser = this.createUser.bind(this);
-        this.userService = new UserService();
+        this.userService = userService;
     }
 
     async createUser(req, res, next) {
@@ -14,5 +12,7 @@ module.exports.UserController = class {
         } catch (error) {
             return next(error);
         }
-    }
-};
+    } 
+}
+
+module.exports = { UserController };

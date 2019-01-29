@@ -1,12 +1,14 @@
 const Sequelize = require('sequelize');
+
 const database = require('../core/database');
 
 const User = database.define('user', {
     id: {
         allowNull: false,
-        autoIncrement: true,
+        autoIncrement: false,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
     },
     name: {
         allowNull: false,
@@ -21,7 +23,7 @@ const User = database.define('user', {
         type: Sequelize.STRING(40),
         validate: {
             len: [2, 255]
-        }
+        } 
     },
     salt: {
         allowNull: false,
@@ -39,4 +41,7 @@ const User = database.define('user', {
     }
 });
 
+// User.hasMany(Post, { foreignKey: 'authorId' });
+// Post.belongsTo(User, { as: 'author', foreignKey: 'authorId' });
+ 
 module.exports = User;

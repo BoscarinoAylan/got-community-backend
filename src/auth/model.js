@@ -4,9 +4,10 @@ const database = require('../core/database');
 const BlackList = database.define('blacklist', {
     id: {
         allowNull: false,
-        autoIncrement: true,
+        autoIncrement: false,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
     },
     token: {
         allowNull: false,

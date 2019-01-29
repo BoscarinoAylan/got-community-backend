@@ -1,8 +1,7 @@
-const { AuthService } = require('./service');
-
-module.exports.AuthController = class AuthController {
-    constructor() {
-        this.authService = new AuthService();
+class AuthController {
+    constructor(authService) {
+        this.authService = authService;
+        
         this.logIn = this.logIn.bind(this);
     }
     
@@ -21,4 +20,6 @@ module.exports.AuthController = class AuthController {
             return next(error);
         }
     }
-};
+}
+
+module.exports = { AuthController };

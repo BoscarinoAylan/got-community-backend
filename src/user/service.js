@@ -2,13 +2,13 @@ const crypto = require('crypto');
 
 const User = require('./model');
 
-module.exports.UserService = class UserService {
+class UserService {
 
-    async createUser({email, name, password}) {
+    async createUser({ email, name, password }) {
         const salt = crypto.randomBytes(16).toString('hex');
         const hash = crypto.pbkdf2Sync(password, salt, 100, 100, 'sha256').toString('hex');
 
-        return User.create({
+        return await User.create({
             name, 
             email,
             hash,
@@ -17,8 +17,9 @@ module.exports.UserService = class UserService {
     }
 
     async findByEmail(email) {
-        return User.findOne({ where: { email } });
+        return await User.findOne({ where: { email } });
     }
 
-};
+}
 
+module.exports = { UserService };

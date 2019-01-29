@@ -3,28 +3,30 @@ const PasswordValidator = require('password-validator');
 
 const { AuthService } = require('../auth/service');
 
-module.exports.Middleware = class Middleware {
+class Middleware {
     constructor() {
         this.authService = new AuthService();
-        this.requestAuthentication = this.requestAuthentication.bind(this);
+        this.authenticateRequests = this.authenticateRequests.bind(this);
     }
 
-    async requestAuthentication(req, res, next) {
+    async authenticateRequests(req, res, next) {
         if (
             !req.headers.authorization ||
             req.headers.authorization.split(' ').length !== 2
         ) {
-            return res.satus(401).end();
+            return res.status(401).end();
         }
 
         const token = req.headers.authorization.split(' ')[1];
 
-        this.authService.tokenIsValid(token, (error, payload) => {
+        this.authService.tokenIsValid(token, async (error, payload) => {
             if (error) {
                 return res.status(401).end();
+
             }
 
-            if (this.authService.tokenIsBlacklisted) {
+            if (await this.authService.tokenIsBlacklisted()) {
+                console.log('parou aki');
                 return res.status(401).end();
             }
 
@@ -63,4 +65,6 @@ module.exports.Middleware = class Middleware {
 
         return next();
     }
-};
+}
+
+module.exports = { Middleware };
