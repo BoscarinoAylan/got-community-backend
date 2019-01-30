@@ -1,6 +1,6 @@
 module.exports = {
     development: {
-        port: 3000,
+        port: 3030,
         jwtSecret: 'a-random-secret',
         database: {
             host: 'localhost',

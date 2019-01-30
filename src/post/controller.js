@@ -11,7 +11,7 @@ class PostController {
 
     async index(req, res, next) {
         try {
-            const posts = await this.postService.listPosts(req.query.id);
+            const posts = await this.postService.listPosts(req.query.authorId);
             return res.json(posts);
         } catch (error) {
             return next(error);

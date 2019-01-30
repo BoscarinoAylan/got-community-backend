@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const database = require('./core/database');
 const environment = process.env.NODE_ENV || 'development';
@@ -10,6 +11,7 @@ const app = express();
 const appModule = createAppModule();
 
 app.use(express.json());
+app.use(cors());
 app.use(rootRouter(appModule));
 
 database.sync({ force: false })

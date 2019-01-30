@@ -24,6 +24,7 @@ class PostService {
         const feature = authorId && 'where';
         return await this.postRepository.findAll({
             [feature]: { authorId },
+            attributes: ['title', 'createdAt'],
             order: [
                 ['createdAt', 'DESC']
             ],
@@ -38,7 +39,16 @@ class PostService {
     }
 
     async getPost(id) {
-        return await this.postRepository.findOne({ id });
+        return await this.postRepository.findOne({ 
+            where: { id },
+            include: [{
+                required: true,
+                as: 'author',
+                model: this.userRepository.getModel(),
+                attributes: ['name', 'id'],
+                association: 'author'
+            }],
+        });
     }
 
     async destroyPost(id) {
