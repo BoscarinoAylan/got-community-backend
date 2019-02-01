@@ -24,7 +24,7 @@ class PostService {
         const feature = authorId && 'where';
         return await this.postRepository.findAll({
             [feature]: { authorId },
-            attributes: ['title', 'createdAt'],
+            attributes: ['title', 'createdAt', 'id'],
             order: [
                 ['createdAt', 'DESC']
             ],
