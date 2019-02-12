@@ -34,7 +34,7 @@ class CommentService {
                 required: true,
                 as: 'author',
                 model: this.userRepository.getModel(),
-                attributes: ['name'],
+                attributes: ['name', 'createdAt'],
                 association: 'author'
             }]
         });

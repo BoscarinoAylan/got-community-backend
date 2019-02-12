@@ -1,7 +1,7 @@
 const Router = require('express').Router();
 
 function userRouter(userController, middlewares) {
-    Router.post('/', userController.createUser);
+    Router.post('/', middlewares.validateUser, middlewares.validatePassword, userController.createUser);
 
     return Router;
 }

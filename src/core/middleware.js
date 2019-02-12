@@ -47,14 +47,12 @@ class Middleware {
         return next();
     }
 
-    vaidatePassword(req, res, next) {
+    validatePassword(req, res, next) {
         const { password } = req.body;
         const passwordValidator = new PasswordValidator();
 
         passwordValidator
-            .is().min(8)
-            .has().lowercase()
-            .has().digits()
+            .is().min(4)
             .has().not().spaces();
 
         if(!passwordValidator.validate(password)) {

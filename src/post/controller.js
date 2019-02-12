@@ -11,7 +11,8 @@ class PostController {
 
     async index(req, res, next) {
         try {
-            const posts = await this.postService.listPosts(req.query.authorId);
+            const { page } = req.query;
+            const posts = await this.postService.listPostsPaginated(page);
             return res.json(posts);
         } catch (error) {
             return next(error);

@@ -16,7 +16,7 @@ const Comment = database.define('comment', {
         allowNull: false,
         type: Sequelize.TEXT,
         validate: {
-            len: [10, 500]
+            len: [2, 500]
         }
     }
 });

@@ -63,6 +63,24 @@ class PostService {
             { where: { id } }
         );
     }
+
+    async listPostsPaginated(page = 1, postsPerPage = 10, defaulOffset = 0) {
+        return await this.postRepository.findAll({
+            attributes: ['title', 'body', 'createdAt', 'id'],
+            limit: 10,
+            offset: page > 1 ? (page - 1) * postsPerPage : defaulOffset,
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            include: [{
+                required: true,
+                as: 'author',
+                model: this.userRepository.getModel(),
+                attributes: ['name', 'id', 'createdAt'],
+                association: 'author'
+            }],
+        });
+    }
 }
 
 module.exports = { PostService };

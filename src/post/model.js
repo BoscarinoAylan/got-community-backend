@@ -15,14 +15,14 @@ const Post = database.define('post', {
         allowNull: false,
         type: Sequelize.STRING(140),
         validate: {
-            len: [10, 140]
+            len: [2, 140]
         }
     },
     body: {
         allowNull: false,
         type: Sequelize.TEXT,
         validate: {
-            len: [10, 10000]
+            len: [2, 10000]
         }
     }
 });

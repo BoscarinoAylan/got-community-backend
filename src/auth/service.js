@@ -43,8 +43,7 @@ class AuthService {
             where: { token }
         });
         if (tokensList.length === 0) {
-            const invalidToken = this.authRepository.create({ token });
-            invalidToken.save();
+            const invalidToken = await this.authRepository.create({ token });
         }
     }
 
