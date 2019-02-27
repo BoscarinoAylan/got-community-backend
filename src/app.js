@@ -18,4 +18,5 @@ database.sync({ force: false })
     .then(() => {
         const port = config.port;
         app.listen(port, () => console.log(`ouvindo a porta ${port}`));
-    });
+    })
+    .catch(err => console.error(err));
