@@ -12,7 +12,7 @@ module.exports = {
         }
     },
     production: {
-        port: process.env.EV_PORT,
+        port: process.env.PORT,
         jwtSecret: process.env.JWT_SECRET,
         database: {
             host: process.env.DB_HOST,
